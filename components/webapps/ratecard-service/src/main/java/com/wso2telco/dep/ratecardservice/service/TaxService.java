@@ -79,6 +79,16 @@ public class TaxService {
 
         return newTax;
     }
+    
+    public TaxDTO insertTax(TaxDTO tax) throws BusinessException {
+
+        TaxDTO newTax = null;
+
+        newTax = taxDAO.addTax(tax);
+        newTax = getTax(newTax.getTaxId());
+
+        return newTax;
+    }
 
     public TaxDTO getTax(int taxId) throws BusinessException {
 

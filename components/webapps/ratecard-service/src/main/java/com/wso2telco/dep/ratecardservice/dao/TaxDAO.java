@@ -22,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -241,7 +240,9 @@ public class TaxDAO {
 				throw new BusinessException(ServiceError.SERVICE_ERROR_OCCURED);
 			}
 
-			
+			if(!addTaxValidity(tax.getTaxesValidityDates()[0])) {
+				throw new BusinessException(ServiceError.SERVICE_ERROR_OCCURED);
+			}
 			
 			StringBuilder query = new StringBuilder("insert into ");
 			query.append(DatabaseTables.TAX.getTObject());
@@ -265,10 +266,7 @@ public class TaxDAO {
 
 				taxId = rs.getInt(1);
 			}
-
-			con.commit();
-
-			if(!addTaxValidity(tax.getTaxesValidityDates()[0],taxId)) {
+			if(!addTaxValidity(tax.getTaxesValidityDates()[0])) {
 				throw new BusinessException(ServiceError.SERVICE_ERROR_OCCURED);
 			}
 			
@@ -288,7 +286,7 @@ public class TaxDAO {
 
 		return tax;
 	}
-	public boolean addTaxValidity(TaxValidityDTO taxValidityDTO,Integer taxID) throws BusinessException {
+	public boolean addTaxValidity(TaxValidityDTO taxValidityDTO) throws BusinessException {
 		
 		
 		Connection con = null;
@@ -317,23 +315,15 @@ public class TaxDAO {
 
 			log.debug("sql query in addTax : " + ps);
 
-			String actDate[]=taxValidityDTO.getTaxValidityactdate().split("/");
+			String actDate[]=taxValidityDTO.getTaxValidityactdate().split("-");
 
-			String disDate[]=taxValidityDTO.getTaxValiditydisdate().split("/");
-
-			//ps.setDate(1, new Date(new Integer(new Integer(actDate[0]) - 1900), new Integer(actDate[1]), new Integer(actDate[2])));
-			//ps.setDate(2, new Date(new Integer(new Integer(disDate[0]) - 1900), new Integer(disDate[1]), new Integer(disDate[2])));
-			Calendar actDateCal = Calendar.getInstance();
-			actDateCal.set(new Integer(actDate[0]),new Integer(actDate[1]) - 1, new Integer(actDate[2]));
-			Calendar disDateCal = Calendar.getInstance();
-			disDateCal.set(new Integer(disDate[0]),new Integer(disDate[1]) - 1, new Integer(disDate[2]));
-
-			ps.setDate(1, new Date(actDateCal.getTimeInMillis()));
-			ps.setDate(2, new Date(disDateCal.getTimeInMillis()));
+			String disDate[]=taxValidityDTO.getTaxValiditydisdate().split("-");
+			
+			ps.setDate(1, new Date(new Integer(actDate[0]), new Integer(actDate[1]), new Integer(actDate[2])));
+			ps.setDate(2, new Date(new Integer(disDate[0]), new Integer(disDate[1]), new Integer(disDate[2])));
 			ps.setDouble(3, new Double(taxValidityDTO.getTaxValidityval()));
-			ps.setInt(4, taxID);
+			ps.setInt(4, taxValidityDTO.getTaxid());
 
-			log.debug("sql query in addTax (after): " + ps);
 			ps.executeUpdate();
 
 			
