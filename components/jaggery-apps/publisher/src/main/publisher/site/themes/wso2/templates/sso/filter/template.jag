@@ -105,7 +105,11 @@
             </style>
 
 
-               <form method="post" action="<%=idpURL%>" style="visibility: hidden;">
+	        <p>You are now redirected to Identity. If the
+
+	        redirection fails, please click the post button.</p>
+
+	              <form method="post" action="<%=idpURL%>" style="visibility: hidden;">
 
 	            <p>
 
