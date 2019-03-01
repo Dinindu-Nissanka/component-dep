@@ -10,23 +10,23 @@
  */
 (function() {
 
-    var container = document.getElementById( 'cbp-vm' ),
+	var container = document.getElementById( 'cbp-vm' ),
         optionSwitch = Array.prototype.slice.call( container.querySelectorAll( 'div.cbp-vm-options > a' ) );
 
     var containerRecentVal = document.getElementById( 'cbp-vm-recent' );
 
     if(containerRecentVal !== null){
-        var containerRecent = document.getElementById( 'cbp-vm-recent' ),
+    	var containerRecent = document.getElementById( 'cbp-vm-recent' ),
             optionSwitchRecent = Array.prototype.slice.call( containerRecent.querySelectorAll( 'div.cbp-vm-options > a' ) );
     }
 
-    function init() {
-        optionSwitch.forEach( function( el, i ) {
-            el.addEventListener( 'click', function( ev ) {
-                ev.preventDefault();
-                _switch( this );
-            }, false );
-        } );
+	function init() {
+		optionSwitch.forEach( function( el, i ) {
+			el.addEventListener( 'click', function( ev ) {
+				ev.preventDefault();
+				_switch( this );
+			}, false );
+		} );
 
         if(containerRecentVal !== null) {
             optionSwitchRecent.forEach(function (el, i) {
@@ -36,19 +36,19 @@
                 }, false);
             });
         }
-    }
+	}
 
-    function _switch( opt ) {
-        // remove other view classes and any any selected option
-        optionSwitch.forEach(function(el) {
-            classie.remove( container, el.getAttribute( 'data-view' ) );
-            classie.remove( el, 'cbp-vm-selected' );
-        });
-        // add the view class for this option
-        classie.add( container, opt.getAttribute( 'data-view' ) );
-        // this option stays selected
-        classie.add( opt, 'cbp-vm-selected' );
-    }
+	function _switch( opt ) {
+		// remove other view classes and any any selected option
+		optionSwitch.forEach(function(el) { 
+			classie.remove( container, el.getAttribute( 'data-view' ) );
+			classie.remove( el, 'cbp-vm-selected' );
+		});
+		// add the view class for this option
+		classie.add( container, opt.getAttribute( 'data-view' ) );
+		// this option stays selected
+		classie.add( opt, 'cbp-vm-selected' );
+	}
 
     function _switchRecent( opt ) {
         // remove other view classes and any any selected option
@@ -62,6 +62,6 @@
         classie.add( opt, 'cbp-vm-selected' );
     }
 
-    init();
+	init();
 
 })();
