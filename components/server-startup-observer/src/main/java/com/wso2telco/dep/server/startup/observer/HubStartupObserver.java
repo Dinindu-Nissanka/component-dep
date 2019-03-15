@@ -32,6 +32,7 @@ import org.wso2.carbon.utils.CarbonUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 import static java.nio.file.Files.readAllBytes;
@@ -209,7 +210,6 @@ public class HubStartupObserver implements ServerStartupObserver {
                  * Checking Deployment type and Setting suitable permissions accrodingly.
                  */
                 if (getDeploymentType().startsWith(INTERNAL_GATEWAY)) {
-
                     permissions = new Permission[]{
                             new Permission(BASIC_LOGIN_ACTION, EXECUTE_ACTION),
                             new Permission("/permission/UIModulePermission/workFlowHistory", EXECUTE_ACTION),
