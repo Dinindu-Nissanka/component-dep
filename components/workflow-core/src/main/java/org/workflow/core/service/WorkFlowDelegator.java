@@ -77,7 +77,7 @@ public class WorkFlowDelegator {
     public Callback getSubscriptionApprovalHistory(final TaskSearchDTO serchD, UserProfileDTO userProfile) throws BusinessException {
         WorkFlowProcessor queryBuilder = ActivityProcessFactory
                 .getInstance()
-                .getWorkFlowFactory(WorkFlowType.SUBSCRIPTION)
+                .getWorkFlowFactory(WorkFlowType.APPLICATION)
                 .getWorkFlowProcessor();
 
         return queryBuilder.getSubscriptionHistoryData(serchD, userProfile);

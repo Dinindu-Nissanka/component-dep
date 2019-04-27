@@ -88,66 +88,7 @@ public class IntGtwSubRequestBuilder extends AbstractSubRequestBuilder {
 
     @Override
     public Callback getSubscriptionHistoryData(TaskSearchDTO searchDTO, UserProfileDTO userProfile) throws BusinessException {
-
-        String filterStr = searchDTO.getFilterBy();
-        final Map<String, String> varMap = new HashMap<String, String>();
-        Callback returnCall;
-
-        if (filterStr != null && !filterStr.trim().isEmpty()) {
-            final String[] filterCriterias = filterStr.split(",");
-            for (String criteria : filterCriterias) {
-                String[] criteriaArray = criteria.split(":");
-                if (criteriaArray.length == 2 && !criteriaArray[0].trim().isEmpty() && !criteriaArray[1].trim().isEmpty()
-                        && subHistoryFilterMap().containsKey(criteriaArray[0].trim().toLowerCase())) {
-                    varMap.put(subHistoryFilterMap().get(criteriaArray[0].trim().toLowerCase()), criteriaArray[1]);
-                }
-            }
-        }
-
-        int subscriptionId;
-        String apiName = ALL;
-        String applicationName =ALL;
-        String tier = ALL;
-        String operator = userProfile.getUserName().toUpperCase();
-        String createdBy = ALL;
-
-        if (varMap.containsKey(SubscriptionHistoryVariable.ID.key())) {
-            subscriptionId = Integer.parseInt(varMap.get(SubscriptionHistoryVariable.ID.key()));
-        }
-        else {
-            subscriptionId = 0;
-        }
-
-        if(varMap.containsKey(SubscriptionHistoryVariable.APINAME.key())){
-            apiName = varMap.get(SubscriptionHistoryVariable.APINAME.key());
-        }
-
-        if (varMap.containsKey(SubscriptionHistoryVariable.APPNAME.key())) {
-            applicationName = varMap.get(SubscriptionHistoryVariable.APPNAME.key());
-        }
-
-        if (varMap.containsKey(SubscriptionHistoryVariable.TIER.key())) {
-            tier = varMap.get(SubscriptionHistoryVariable.TIER.key());
-        }
-
-        if (varMap.containsKey(SubscriptionHistoryVariable.CREATED_BY.key())) {
-            createdBy = varMap.get(SubscriptionHistoryVariable.CREATED_BY.key());
-        }
-
-        SubscriptionFilter filterObject = new SubscriptionFilter();
-        filterObject.setSubscriptionId(subscriptionId);
-        filterObject.setApiName(apiName);
-        filterObject.setAppName(applicationName);
-        filterObject.setTierId(tier);
-        filterObject.setCreatedBy(createdBy);
-
-        try {
-            SubscriptionHistoryResponse apiRequests = getSubscriptionApprovalHistory(filterObject,operator, searchDTO.getStart(), searchDTO.getBatchSize());
-            returnCall = new Callback().setPayload(apiRequests).setSuccess(true).setMessage(Messages.APPLICATION_HISTORY_SUCCESS.getValue());
-        } catch (Exception e) {
-            returnCall = new Callback().setPayload(e.getMessage()).setSuccess(false).setMessage(Messages.APPLICATION_HISTORY_FAILED.getValue());
-        }
-        return returnCall;
+        return null;
     }
 
     @Override
