@@ -19,7 +19,6 @@ import com.wso2telco.core.dbutils.exception.BusinessException;
 import com.wso2telco.core.dbutils.util.ApprovalRequest;
 import com.wso2telco.core.dbutils.util.Callback;
 import com.wso2telco.core.userprofile.dto.UserProfileDTO;
-import com.wso2telco.dep.reportingservice.dao.Subscription;
 import org.apache.commons.logging.LogFactory;
 import org.workflow.core.activity.TaskApprovalRequest;
 import org.workflow.core.model.*;
@@ -135,7 +134,7 @@ public class IntGtwSubRequestBuilder extends AbstractSubRequestBuilder {
             createdBy = varMap.get(SubscriptionHistoryVariable.CREATED_BY.key());
         }
 
-        Subscription filterObject = new Subscription();
+        SubscriptionFilter filterObject = new SubscriptionFilter();
         filterObject.setSubscriptionId(subscriptionId);
         filterObject.setApiName(apiName);
         filterObject.setAppName(applicationName);
