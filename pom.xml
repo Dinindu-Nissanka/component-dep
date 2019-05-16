@@ -164,7 +164,7 @@
 		<url>https://github.com/WSO2Telco/component-dep.git</url>
 		<developerConnection>scm:git:https://github.com/WSO2Telco/component-dep.git</developerConnection>
 		<connection>scm:git:https://github.com/WSO2Telco/component-dep.git</connection>
-		<tag>33</tag>
+		<tag>v3_0_0</tag>
 	</scm>
 
 	<repositories>
